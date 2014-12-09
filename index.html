@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Convex Hull 3D</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script src="processing.js"></script>
+		<script src="interface_handler.js"></script>
+	</head>
+	<body>
+		<div id="main_container">
+			<div class="page_content">
+			
+			<!--Title-->
+			<div class="solid_divider"></div>
+			<center><h1>3D Convex Hull</h1></center>
+			<div class="solid_divider"></div> 
+	
+			<!--Main Application-->
+			<div id="content">
+				<div class="left">
+					<canvas id="main" data-processing-sources="ConvexHull3D.pde ConvexHull.pde VertexC.pde VertexListC.pde EdgeC.pde EdgeListC.pde FaceC.pde FaceListC.pde"></canvas>
+						<p>Total Points:
+						<input type="text" id="txt_vertex" value="10"/>
+						<input type="button" onClick="start('main')" value="Start"/></p>
+
+				</div>
+				<div class="right">
+					<label id="lb_unexpl" class="labelunexpl">Unexplored:</label><br/>
+					<label id="lb_expl" class="labelexpl">Exploring:</label><br/>
+					<label id="lb_onhull" class="labelonhull">OnHull:</label><br/>
+					<label id="lb_inhull" class="labelinhull">InsideHull:</label><br/>
+				</div>
+			</div>
+			
+			<!--Instruction-->
+			<div class="solid_divider"></div>
+			<div class="archive_post">
+				<p>
+					<u>Instructions:</u><br>
+					<ol>
+						<li>Move mouse to make different orientations of the scene. </li>
+						<li>Right arrow to make a step. </li>
+						<li>Up arrow to move closer to the origin. </li>
+						<li>Down arrow to move further from the origin. </li>
+						<li>Start button to draw the specified number of vertices. </li>
+					</ol>
+					
+					<u>Input:</u> <br>
+					<ol>
+						<li>Enter the total number of vertices.</li> 
+						<li>Click <b>start</b> button to draw randomly generated specified number of vertices.</li> 
+					</ol>
+			
+					<u>Output:</u> <br>
+					<ol>
+						<li>Vertex: White (not processed yet), Blue (processing), Green (on hull), Black (inside hull). </li>
+						<li>Face: Brown (on hull), Purple (will be removed). </li>
+					</ol>
+				</p>
+			</div>
+			</div>
+		</div> 
+		
+		<script>		
+		document.getElementById("main").onkeydown = function(evt) {myFunction(evt)};
+
+		function myFunction(evt) {
+			
+				var verList = Processing.getInstanceById("main").getVerList(evt.keyCode);
+				//alert(verList);
+				if (verList.length > 0) {
+					
+				var secListArr = verList.split(";");
+				document.getElementById("lb_unexpl").innerHTML = secListArr[0];
+				document.getElementById("lb_expl").innerHTML = secListArr[1];
+				document.getElementById("lb_onhull").innerHTML = secListArr[2];
+				document.getElementById("lb_inhull").innerHTML = secListArr[3];
+				}	
+		}
+		
+</script>
+
+	</body>
+</html>
